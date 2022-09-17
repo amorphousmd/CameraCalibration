@@ -72,3 +72,6 @@ cv2.setMouseCallback("image", printCoordinate)
 cv2.waitKey()
 cv2.destroyAllWindows()
 
+
+
+
