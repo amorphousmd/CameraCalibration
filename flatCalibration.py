@@ -43,8 +43,6 @@ for image in images:
 
         # Draw and display the corners
         cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-        cv.imshow('img', img)
-        cv.waitKey(1)
 
 
 cv.destroyAllWindows()
@@ -102,8 +100,6 @@ if ret == True:
 
     # Draw and display the corners
     cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-    cv.imshow('img', img)
-    cv.waitKey(1)
 
 list1 = []
 for elements in objp:
