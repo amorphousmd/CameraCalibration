@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import copy
 
+
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)-15s %(levelname)s \t%(message)s')
 
 def draw_crosshair(image, center, width, color):
