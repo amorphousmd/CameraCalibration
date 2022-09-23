@@ -144,6 +144,7 @@ for XY, xy in features_mm_to_pixels_dict.items():
 x, residuals, rank, singular_values = np.linalg.lstsq(A, b, rcond=None)
 
 pixels_to_mm_transformation_mtx = np.array([[x[0, 0], x[1, 0], x[2, 0]], [x[3, 0], x[4, 0], x[5, 0]], [0, 0, 1]])
+np.save('./calibSaves/TMatrix.npy', pixels_to_mm_transformation_mtx)
 logging.debug("main(): pixels_to_mm_transformation_mtx = \n{}".format(pixels_to_mm_transformation_mtx))
 
 mm_to_pixels_transformation_mtx = np.linalg.inv(pixels_to_mm_transformation_mtx)

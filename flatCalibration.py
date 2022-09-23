@@ -44,23 +44,18 @@ for image in images:
         # Draw and display the corners
         cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
 
-
 cv.destroyAllWindows()
-
-############## CALIBRATION #######################################################
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
- ############## UNDISTORTION #####################################################
-
-img = cv.imread('Images/2.png')
+img = cv.imread('Images/8.png')  # This image defines the World Coordinates
 h,  w = img.shape[:2]
 newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
 
-# Undistort
+# Undistort image
 dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
 
-# crop the image
+# Crop the image
 x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
 cv.imwrite('caliResult1.png', dst)
@@ -75,7 +70,7 @@ dst = dst[y:y+h, x:x+w]
 cv.imwrite('caliResult2.png', dst)
 
 # Reprojection Error
-mean_error = 0
+# mean_error = 0
 
 # for i in range(len(objpoints)):
 #     imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], cameraMatrix, dist)
@@ -146,7 +141,7 @@ logging.debug("main(): pixels_to_mm_transformation_mtx = \n{}".format(pixels_to_
 
 mm_to_pixels_transformation_mtx = np.linalg.inv(pixels_to_mm_transformation_mtx)
 
-test_XY_2 = (132, 66, 1)  # Nhap toa do test
+test_XY_2 = (66, 66, 1)  # Nhap toa do test
 test_xy_2 = mm_to_pixels_transformation_mtx @ test_XY_2
 image = cv.imread(image_filepath)
 annotated_img = copy.deepcopy(image)
