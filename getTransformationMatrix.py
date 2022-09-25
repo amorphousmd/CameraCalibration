@@ -5,8 +5,8 @@ import copy
 
 
 def draw_crosshair(image, center, width, color):
-    cv.line(image, (center[0] - width // 2, center[1]), (center[0] + width // 2, center[1]), color, 2)
-    cv.line(image, (center[0], center[1] - width // 2), (center[0], center[1] + width // 2), color, 2)
+    cv.line(image, (center[0] - width // 2, center[1]), (center[0] + width // 2, center[1]), color, 3)
+    cv.line(image, (center[0], center[1] - width // 2), (center[0], center[1] + width // 2), color, 3)
 
 
 def getTransformationMatrix(imagePath):
@@ -97,7 +97,6 @@ def getTransformationMatrix(imagePath):
 
     mm_to_pixels_transformation_mtx = np.linalg.inv(pixels_to_mm_transformation_mtx)
 
-    logging.debug("mm to Pixel Transformation Matrix = \n{}".format(mm_to_pixels_transformation_mtx))
     return mm_to_pixels_transformation_mtx
 
 
