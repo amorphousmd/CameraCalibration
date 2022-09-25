@@ -48,7 +48,7 @@ cv.destroyAllWindows()
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
-img = cv.imread('Images/8.png')  # This image defines the World Coordinates
+img = cv.imread('Images/9.png')  # This image defines the World Coordinates
 h,  w = img.shape[:2]
 newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
 

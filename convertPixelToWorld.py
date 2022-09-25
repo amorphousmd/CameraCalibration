@@ -8,7 +8,7 @@ import numpy as np
 def convertPixelToWorld(planeMatrix):
     planeMatrix = (*planeMatrix, 1)  # Append a 1 to tuple
     pixelToWorldMatrix = np.load('calibSaves/TMatrix.npy')  # Load transformation matrix from file
-    # print(pixelToWorldMatrix)  # Print T matrix, can comment this
+    # print(pixelToWorldMatrix)  # Print T matrix, can uncomment this
     try:
         worldMatrix = pixelToWorldMatrix @ planeMatrix  # Calculate world matrix
     except ValueError:

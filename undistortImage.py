@@ -39,17 +39,13 @@ for image in images:
         corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
         imgpoints.append(corners)
 
-        # Draw and display the corners
-        cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-        cv.imshow('img', img)
-        cv.waitKey(1)
-
-
 cv.destroyAllWindows()
 
 ############## CALIBRATION #######################################################
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
+np.save('./calibSaves/CameraMatrix.npy', cameraMatrix)
+np.save('./calibSaves/Distortion.npy', dist)
 
  ############## UNDISTORTION #####################################################
 
@@ -65,42 +61,6 @@ x, y, w, h = roi
 dst = dst[y:y+h, x:x+w]
 cv.imwrite('caliResult1.png', dst)
 
-# Undistort with Remapping
-mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
-dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
-
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('caliResult2.png', dst)
-
-# Reprojection Error
-mean_error = 0
-
-# for i in range(len(objpoints)):
-#     imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], cameraMatrix, dist)
-#     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
-#     mean_error += error
-#
-# print( "total error: {}".format(mean_error/len(objpoints)))
-
 imgTest = cv.imread('caliResult1.png')
-gray = cv.cvtColor(imgTest, cv.COLOR_BGR2GRAY)
-
-# Find the chess board corners
-ret, corners = cv.findChessboardCorners(gray, chessboardSize, None)
-#print(corners)
-
-# If found, add object points, image points (after refining them)
-if ret == True:
-
-    objpoints.append(objp)
-    corners2 = cv.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
-    imgpoints.append(corners)
-
-    # Draw and display the corners
-    cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
-    cv.imshow('img', img)
-    cv.waitKey(1000)
-
-print(corners2)
+cv.imshow('image', imgTest)
+cv.waitKey(0)
